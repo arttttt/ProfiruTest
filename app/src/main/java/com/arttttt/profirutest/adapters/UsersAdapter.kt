@@ -17,6 +17,7 @@ import com.arttttt.profirutest.ui.FullscreenImageActivity
 import com.arttttt.profirutest.utils.ImageLoader
 import android.support.v4.app.ActivityOptionsCompat
 
+
 class UsersAdapter(private val context: Context, users: List<User>): RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val mInflater: LayoutInflater
@@ -31,10 +32,36 @@ class UsersAdapter(private val context: Context, users: List<User>): RecyclerVie
         imageLoader = ImageLoader(context)
     }
 
+    private fun pictureClicked(position: Int, holder: ViewHolder) {
+        val user = mUsers[position]
+
+        val intent = Intent(context, FullscreenImageActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        val bundle = Bundle()
+        bundle.putParcelable("user", user)
+        intent.putExtras(bundle)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity,
+                holder.avatar, "avatar")
+            context.startActivity(intent, options.toBundle())
+        } else {
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.user_item, parent, false)
 
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+
+        viewHolder.avatar.setOnClickListener {
+            val adapterPosition = viewHolder.adapterPosition
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                pictureClicked(adapterPosition, viewHolder)
+            }
+        }
+
+        return viewHolder
     }
 
     override fun getItemCount() = mUsers.size
@@ -46,21 +73,6 @@ class UsersAdapter(private val context: Context, users: List<User>): RecyclerVie
         holder.lastName.text = user.lastName
 
         imageLoader.displayImage(user.avatarUrl, holder.avatar)
-
-        holder.avatar.setOnClickListener {
-            val intent = Intent(context, FullscreenImageActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            val bundle = Bundle()
-            bundle.putParcelable("user", user)
-            intent.putExtras(bundle)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity,
-                    holder.avatar, "avatar")
-                context.startActivity(intent, options.toBundle())
-            } else {
-                context.startActivity(intent)
-            }
-        }
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {

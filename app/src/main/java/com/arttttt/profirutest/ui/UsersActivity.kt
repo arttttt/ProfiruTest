@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.arttttt.profirutest.R
 import com.arttttt.profirutest.adapters.UsersAdapter
 import com.arttttt.profirutest.models.User
@@ -14,7 +13,6 @@ import com.vk.sdk.api.*
 import com.vk.sdk.api.model.VKList
 import com.vk.sdk.api.model.VKApiUser
 import kotlinx.android.synthetic.main.activity_users.*
-
 
 class UsersActivity : AppCompatActivity() {
 
