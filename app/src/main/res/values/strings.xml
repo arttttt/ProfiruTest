@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ProfiruTest</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="button_login_text">Login</string>
+    <string name="login_failed">Login failed. Try again later</string>
+</resources>
