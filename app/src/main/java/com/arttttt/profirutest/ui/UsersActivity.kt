@@ -1,10 +1,15 @@
 package com.arttttt.profirutest.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.arttttt.profirutest.R
 import com.arttttt.profirutest.adapters.UsersAdapter
 import com.arttttt.profirutest.models.User
@@ -14,7 +19,7 @@ import com.vk.sdk.api.model.VKList
 import com.vk.sdk.api.model.VKApiUser
 import kotlinx.android.synthetic.main.activity_users.*
 
-class UsersActivity : AppCompatActivity() {
+class UsersActivity : AppCompatActivity(), UsersAdapter.OnPictureClickListener {
 
     private val PERMISSION_REQUEST_CODE = 0
 
@@ -60,8 +65,23 @@ class UsersActivity : AppCompatActivity() {
                     }
 
                     usersRecycleView.layoutManager = LinearLayoutManager(this@UsersActivity)
-                    usersRecycleView.adapter = UsersAdapter(this@UsersActivity, users)
+                    usersRecycleView.adapter = UsersAdapter(this@UsersActivity, this@UsersActivity, users)
                 }
             })
+    }
+
+    override fun click(view: View, data: Parcelable) {
+        val intent = Intent(this, FullscreenImageActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        val bundle = Bundle()
+        bundle.putParcelable("user", data)
+        intent.putExtras(bundle)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                view, "avatar")
+            startActivity(intent, options.toBundle())
+        } else {
+            startActivity(intent)
+        }
     }
 }

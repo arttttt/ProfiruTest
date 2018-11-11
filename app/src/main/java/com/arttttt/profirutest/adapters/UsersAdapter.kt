@@ -1,10 +1,7 @@
 package com.arttttt.profirutest.adapters
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.os.Bundle
+import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +10,11 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import com.arttttt.profirutest.R
-import com.arttttt.profirutest.ui.FullscreenImageActivity
 import com.arttttt.profirutest.utils.ImageLoader
-import android.support.v4.app.ActivityOptionsCompat
 
 
-class UsersAdapter(private val context: Context, users: List<User>): RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+class UsersAdapter(private val context: Context, private val pictureClickListener: OnPictureClickListener, users: List<User>):
+    RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val mInflater: LayoutInflater
     private val mUsers: List<User>
@@ -35,18 +31,7 @@ class UsersAdapter(private val context: Context, users: List<User>): RecyclerVie
     private fun pictureClicked(position: Int, holder: ViewHolder) {
         val user = mUsers[position]
 
-        val intent = Intent(context, FullscreenImageActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        val bundle = Bundle()
-        bundle.putParcelable("user", user)
-        intent.putExtras(bundle)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity,
-                holder.avatar, "avatar")
-            context.startActivity(intent, options.toBundle())
-        } else {
-            context.startActivity(intent)
-        }
+        pictureClickListener.click(holder.avatar, user)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -85,5 +70,9 @@ class UsersAdapter(private val context: Context, users: List<User>): RecyclerVie
             firstName = view.findViewById(R.id.first_name)
             lastName = view.findViewById(R.id.last_name)
         }
+    }
+
+    interface OnPictureClickListener {
+        fun click(view: View, data: Parcelable)
     }
 }
