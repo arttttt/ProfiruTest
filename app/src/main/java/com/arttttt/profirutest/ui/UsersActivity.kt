@@ -13,6 +13,7 @@ import android.view.View
 import com.arttttt.profirutest.R
 import com.arttttt.profirutest.adapters.UsersAdapter
 import com.arttttt.profirutest.models.User
+import com.arttttt.profirutest.utils.ActivityHelper
 import com.arttttt.profirutest.utils.PermissionsManager
 import com.vk.sdk.api.*
 import com.vk.sdk.api.model.VKList
@@ -71,18 +72,12 @@ class UsersActivity : AppCompatActivity(), UsersAdapter.OnPictureClickListener {
     }
 
     override fun click(view: View, data: Parcelable) {
-        val intent = Intent(this, FullscreenImageActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            putExtras(Bundle().apply {
-                putParcelable("user", data)
-            })
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                view, "avatar")
-            startActivity(intent, options.toBundle())
-        } else {
-            startActivity(intent)
-        }
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+            view, "avatar")
+
+        ActivityHelper.startActivity<FullscreenImageActivity>(this,
+            options.toBundle(),
+            Bundle().apply { putParcelable("user", data) },
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
     }
 }
