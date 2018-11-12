@@ -37,16 +37,14 @@ class UsersAdapter(private val context: Context, private val pictureClickListene
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = mInflater.inflate(R.layout.user_item, parent, false)
 
-        val viewHolder = ViewHolder(view)
-
-        viewHolder.avatar.setOnClickListener {
-            val adapterPosition = viewHolder.adapterPosition
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                pictureClicked(adapterPosition, viewHolder)
+        return ViewHolder(view).apply {
+            avatar.setOnClickListener {
+                val adapterPosition = adapterPosition
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    pictureClicked(adapterPosition, this)
+                }
             }
         }
-
-        return viewHolder
     }
 
     override fun getItemCount() = mUsers.size

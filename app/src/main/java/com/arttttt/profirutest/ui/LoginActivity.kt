@@ -26,8 +26,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, object: VKCallback<VKAccessToken> {
                 override fun onResult(res: VKAccessToken?) {
-                    val intent = Intent(applicationContext, UsersActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    val intent = Intent(applicationContext, UsersActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    }
+
                     startActivity(intent)
                     finish()
                 }
@@ -37,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }))
         {
-            super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 }
