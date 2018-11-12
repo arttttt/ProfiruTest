@@ -71,11 +71,12 @@ class UsersActivity : AppCompatActivity(), UsersAdapter.OnPictureClickListener {
     }
 
     override fun click(view: View, data: Parcelable) {
-        val intent = Intent(this, FullscreenImageActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        val bundle = Bundle()
-        bundle.putParcelable("user", data)
-        intent.putExtras(bundle)
+        val intent = Intent(this, FullscreenImageActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtras(Bundle().apply {
+                putParcelable("user", data)
+            })
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
                 view, "avatar")
