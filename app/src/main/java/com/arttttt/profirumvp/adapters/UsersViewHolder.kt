@@ -28,7 +28,7 @@ class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersViewHolde
         photoLoadingProgressBar = view.findViewById(R.id.photoLoading)
 
         photo.setOnClickListener {
-            presenter.handleItemClick(it, adapterPosition)
+            presenter.onItemClick(adapterPosition, R.id.photo)
         }
     }
 

@@ -21,7 +21,7 @@ class UsersViewHolderPresenter(private val view: UsersViewHolderContract.View): 
         view.cancelPhotoUpdate(url)
     }
 
-    override fun handleItemClick(view: android.view.View, position: Int) {
-        usersAdapterPresenter?.handleItemClick(view, position)
+    override fun onItemClick(position: Int, sharedViewId: Int) {
+        usersAdapterPresenter?.onItemClick(position, sharedViewId)
     }
 }

@@ -12,8 +12,10 @@ class UsersAdapter(private val photoClickListener: PhotoClickListener): Recycler
 
     val presenter: UsersAdapterContract.Presenter = UsersAdapterPresenter(this)
 
-    override fun handleItemClick(view: View, position: Int) {
-        photoClickListener.onPhotoClick(view, presenter.getItemAt(position).photoUrl)
+    override fun handleItemClick(position: Int, sharedViewId: Int) {
+        val user = presenter.getItemAt(position)
+
+        photoClickListener.onPhotoClick(user.photoUrl, sharedViewId, position)
     }
 
     override fun notifyAdapter() {
@@ -43,6 +45,6 @@ class UsersAdapter(private val photoClickListener: PhotoClickListener): Recycler
     }
 
     interface PhotoClickListener {
-        fun onPhotoClick(view: View, url: String)
+        fun onPhotoClick(url: String, sharedViewId: Int, position: Int)
     }
 }

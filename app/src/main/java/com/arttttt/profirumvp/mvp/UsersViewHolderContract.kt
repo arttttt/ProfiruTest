@@ -10,6 +10,6 @@ interface UsersViewHolderContract {
     interface Presenter {
         fun bind()
         fun cancelPhotoUpdate(url: String)
-        fun handleItemClick(view: android.view.View, position: Int)
+        fun onItemClick(position: Int, sharedViewId: Int)
     }
 }

@@ -13,7 +13,7 @@ class UsersAdapterPresenter(private val view: UsersAdapterContract.View): UsersA
         view.notifyAdapter()
     }
 
-    override fun handleItemClick(clickedView: android.view.View, position: Int) {
-        view.handleItemClick(clickedView, position)
+    override fun onItemClick(position: Int, sharedViewId: Int) {
+        view.handleItemClick(position, sharedViewId)
     }
 }

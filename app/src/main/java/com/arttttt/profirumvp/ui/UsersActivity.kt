@@ -73,7 +73,13 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
         with(usersRecyclerView) {
             layoutManager = LinearLayoutManager(this@UsersActivity)
             adapter = UsersAdapter(object : UsersAdapter.PhotoClickListener {
-                override fun onPhotoClick(view: View, url: String) = mPresenter.openUserPhoto(view, url)
+                override fun onPhotoClick(url: String, sharedViewId: Int, position: Int) {
+                    val sharedView = layoutManager
+                        ?.findViewByPosition(position)
+                        ?.findViewById<View>(sharedViewId)
+                    if (sharedView != null)
+                        mPresenter.openUserPhoto(sharedView, url)
+                }
             }).apply {
                 presenter.putUsers(users)
             }

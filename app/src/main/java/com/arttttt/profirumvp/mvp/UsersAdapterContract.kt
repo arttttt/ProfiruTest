@@ -5,13 +5,13 @@ import com.arttttt.profirumvp.model.User
 interface UsersAdapterContract {
     interface View {
         fun notifyAdapter()
-        fun handleItemClick(view: android.view.View, position: Int)
+        fun handleItemClick(position: Int, sharedViewId: Int)
     }
 
     interface Presenter {
         fun getItemAt(position: Int): User
         fun getUsersCount(): Int
-        fun handleItemClick(clickedView: android.view.View, position: Int)
+        fun onItemClick(position: Int, sharedViewId: Int)
         fun putUsers(users: List<User>)
     }
 }
