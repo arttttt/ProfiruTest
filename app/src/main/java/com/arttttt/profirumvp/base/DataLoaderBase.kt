@@ -1,10 +1,19 @@
 package com.arttttt.profirumvp.base
 
-abstract class DataLoaderBase<T> {
-    abstract fun cancelLoading(url: String)
-    abstract fun loadData(url: String, callback: DataLoadedCallback<T>)
+import com.arttttt.profirumvp.cache.FileCache
+import java.util.concurrent.Executor
+
+abstract class DataLoaderBase<T>(useCache: Boolean) {
+
+    protected abstract val executorService: Executor
+
+    protected val fileCache: FileCache? = if (useCache) FileCache() else null
+
+    abstract fun loadData(url: String, onDataLoadedCallback: DataLoadedCallback<T>)
 
     interface DataLoadedCallback<T> {
         fun onDataLoaded(data: T)
     }
+
+    protected abstract inner class BaseTask: Runnable
 }

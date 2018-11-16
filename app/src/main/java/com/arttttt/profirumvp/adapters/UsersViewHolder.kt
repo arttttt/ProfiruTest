@@ -1,16 +1,14 @@
 package com.arttttt.profirumvp.adapters
 
-import android.graphics.Bitmap
 import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.arttttt.profirumvp.R
-import com.arttttt.profirumvp.base.DataLoaderBase
 import com.arttttt.profirumvp.mvp.UsersViewHolderContract
 import com.arttttt.profirumvp.mvp.UsersViewHolderPresenter
-import com.arttttt.profirumvp.utils.BitmapLoader
+import com.arttttt.profirumvp.utils.BitmapManager
 
 class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersViewHolderContract.View {
     private val photo: ImageView
@@ -32,10 +30,6 @@ class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersViewHolde
         }
     }
 
-    override fun cancelPhotoUpdate(url: String) {
-        BitmapLoader.getInstance().cancelLoading(url)
-    }
-
     override fun setFirstName(firstName: String) {
         this.firstName.text = firstName
     }
@@ -45,11 +39,6 @@ class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersViewHolde
     }
 
     override fun setPhotoImage(url: String) {
-        BitmapLoader.getInstance().loadData(url, object: DataLoaderBase.DataLoadedCallback<Bitmap> {
-            override fun onDataLoaded(data: Bitmap) {
-                photoLoadingProgressBar.hide()
-                photo.setImageBitmap(data)
-            }
-        })
+        BitmapManager.getInstance().getBitmapFromUrl(photo, photoLoadingProgressBar, url)
     }
 }

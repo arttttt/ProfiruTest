@@ -17,10 +17,6 @@ class UsersViewHolderPresenter(private val view: UsersViewHolderContract.View): 
         }
     }
 
-    override fun cancelPhotoUpdate(url: String) {
-        view.cancelPhotoUpdate(url)
-    }
-
     override fun onItemClick(position: Int, sharedViewId: Int) {
         usersAdapterPresenter?.onItemClick(position, sharedViewId)
     }

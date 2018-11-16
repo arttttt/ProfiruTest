@@ -1,6 +1,5 @@
 package com.arttttt.profirumvp.cache
 
-import android.content.Context
 import java.io.File
 
 
@@ -15,10 +14,16 @@ class FileCache {
             cacheDir.mkdirs()
     }
 
-    fun getFile(url: String): File {
-        val filename = url.hashCode().toString()
+    fun isFileInCache(fileName: String): Boolean {
+        val fileNameHash = fileName.hashCode().toString()
 
-        return File(cacheDir, filename)
+        return File(cacheDir, fileNameHash).exists()
+    }
+
+    fun getFile(fileName: String): File {
+        val fileNameHash = fileName.hashCode().toString()
+
+        return File(cacheDir, fileNameHash)
 
     }
 
