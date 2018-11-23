@@ -1,6 +1,5 @@
 package com.arttttt.profirumvp.utils
 
-import android.graphics.Bitmap
 import android.support.v4.widget.ContentLoadingProgressBar
 import android.widget.ImageView
 import com.arttttt.profirumvp.base.SingletonHolder
@@ -27,13 +26,14 @@ class BitmapManager private constructor() {
         if (progressView != null)
             progressViewRef = WeakReference(progressView)
 
-        bitmapLoader.loadData(url, object: BitmapLoader.BitmapLoadedCallback {
-            override fun onDataLoaded(data: Bitmap) {
-                memoryCache.put(url, data)
+        bitmapLoader.loadBitmap(url, {
+            if (it == null)
+                return@loadBitmap
 
-                progressViewRef?.get()?.hide()
-                imageViewRef.get()?.setImageBitmap(data)
-            }
-        })
+            memoryCache.put(url, it)
+
+            progressViewRef?.get()?.hide()
+            imageViewRef.get()?.setImageBitmap(it)
+        }, { it.printStackTrace() })
     }
 }
