@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.ui
+package com.arttttt.profirumvp.view.ui
 
 import android.Manifest
 import android.content.Context
@@ -10,10 +10,10 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arttttt.profirumvp.R
-import com.arttttt.profirumvp.adapters.UsersAdapter
+import com.arttttt.profirumvp.view.adapters.UsersAdapter
 import com.arttttt.profirumvp.model.User
-import com.arttttt.profirumvp.mvp.UsersContract
-import com.arttttt.profirumvp.mvp.UsersPresenter
+import com.arttttt.profirumvp.presenter.UsersContract
+import com.arttttt.profirumvp.presenter.UsersPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.arttttt.profirumvp.utils.PermissionsManager
 import kotlinx.android.synthetic.main.activity_users.*

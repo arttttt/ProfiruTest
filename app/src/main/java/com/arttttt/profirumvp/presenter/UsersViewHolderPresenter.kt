@@ -1,6 +1,7 @@
-package com.arttttt.profirumvp.mvp
+package com.arttttt.profirumvp.presenter
 
-class UsersViewHolderPresenter(private val view: UsersViewHolderContract.View): UsersViewHolderContract.Presenter {
+class UsersViewHolderPresenter(private val view: UsersViewHolderContract.View):
+    UsersViewHolderContract.Presenter {
 
     var usersAdapterPresenter: UsersAdapterContract.Presenter? = null
     var position: Int? = null

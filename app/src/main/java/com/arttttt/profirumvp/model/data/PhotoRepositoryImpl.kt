@@ -1,7 +1,7 @@
-package com.arttttt.profirumvp.data
+package com.arttttt.profirumvp.model.data
 
 import android.graphics.Bitmap
-import com.arttttt.profirumvp.data.base.Repository
+import com.arttttt.profirumvp.model.data.base.Repository
 
 class PhotoRepositoryImpl: Repository<Bitmap> {
     override fun loadAsync(callback: Repository.RepositoryLoadAsyncCallback<Bitmap>) {}

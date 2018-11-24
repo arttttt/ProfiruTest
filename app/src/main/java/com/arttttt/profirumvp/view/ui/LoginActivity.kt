@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.ui
+package com.arttttt.profirumvp.view.ui
 
 import android.content.Context
 import android.content.Intent

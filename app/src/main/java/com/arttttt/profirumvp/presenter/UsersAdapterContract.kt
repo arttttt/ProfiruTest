@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.mvp
+package com.arttttt.profirumvp.presenter
 
 import com.arttttt.profirumvp.model.User
 

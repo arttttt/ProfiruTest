@@ -1,8 +1,9 @@
-package com.arttttt.profirumvp.mvp
+package com.arttttt.profirumvp.presenter
 
 import com.arttttt.profirumvp.model.User
 
-class UsersAdapterPresenter(private val view: UsersAdapterContract.View): UsersAdapterContract.Presenter {
+class UsersAdapterPresenter(private val view: UsersAdapterContract.View):
+    UsersAdapterContract.Presenter {
 
     private val users = mutableListOf<User>()
 

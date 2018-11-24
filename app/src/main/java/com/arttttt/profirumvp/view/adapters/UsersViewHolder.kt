@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.adapters
+package com.arttttt.profirumvp.view.adapters
 
 import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.widget.RecyclerView
@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.arttttt.profirumvp.R
-import com.arttttt.profirumvp.mvp.UsersViewHolderContract
-import com.arttttt.profirumvp.mvp.UsersViewHolderPresenter
+import com.arttttt.profirumvp.presenter.UsersViewHolderContract
+import com.arttttt.profirumvp.presenter.UsersViewHolderPresenter
 import com.arttttt.profirumvp.utils.BitmapManager
 
 class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersViewHolderContract.View {

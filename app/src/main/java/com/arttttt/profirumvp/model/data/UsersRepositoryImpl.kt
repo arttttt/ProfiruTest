@@ -1,6 +1,6 @@
-package com.arttttt.profirumvp.data
+package com.arttttt.profirumvp.model.data
 
-import com.arttttt.profirumvp.data.base.Repository
+import com.arttttt.profirumvp.model.data.base.Repository
 import com.arttttt.profirumvp.model.User
 import com.vk.sdk.api.*
 import com.vk.sdk.api.model.VKApiUser

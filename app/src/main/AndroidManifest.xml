@@ -13,18 +13,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.StartupActivity">
+        <activity android:name="com.arttttt.profirumvp.view.ui.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name="com.arttttt.profirumvp.view.ui.LoginActivity">
         </activity>
-        <activity android:name=".ui.UsersActivity">
+        <activity android:name="com.arttttt.profirumvp.view.ui.UsersActivity">
         </activity>
-        <activity android:name=".ui.PhotoActivity">
+        <activity android:name="com.arttttt.profirumvp.view.ui.PhotoActivity">
         </activity>
     </application>
 

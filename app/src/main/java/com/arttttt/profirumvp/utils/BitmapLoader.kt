@@ -2,7 +2,7 @@ package com.arttttt.profirumvp.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.arttttt.profirumvp.cache.FileCache
+import com.arttttt.profirumvp.model.cache.FileCache
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileInputStream

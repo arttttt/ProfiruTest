@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.cache
+package com.arttttt.profirumvp.model.cache
 
 import java.io.File
 

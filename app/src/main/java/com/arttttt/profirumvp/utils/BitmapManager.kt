@@ -3,7 +3,7 @@ package com.arttttt.profirumvp.utils
 import android.support.v4.widget.ContentLoadingProgressBar
 import android.widget.ImageView
 import com.arttttt.profirumvp.base.SingletonHolder
-import com.arttttt.profirumvp.cache.MemoryCache
+import com.arttttt.profirumvp.model.cache.MemoryCache
 import java.lang.ref.WeakReference
 
 class BitmapManager private constructor() {
