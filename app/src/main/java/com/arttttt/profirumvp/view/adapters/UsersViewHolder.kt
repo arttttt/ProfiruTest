@@ -6,21 +6,21 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.arttttt.profirumvp.R
-import com.arttttt.profirumvp.presenter.UsersAdapterContract
-import com.arttttt.profirumvp.utils.BitmapManager
+import com.arttttt.profirumvp.model.photo.Photo
+import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterContract
 
 class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersAdapterContract.ViewHolder {
-    private val photo: ImageView
+    private val userPhoto: ImageView
     private val firstName: TextView
     private val lastName: TextView
     private val photoLoadingProgressBar: ContentLoadingProgressBar
 
     init {
-        photo = view.findViewById(R.id.photo)
+        userPhoto = view.findViewById(R.id.userPhoto)
         firstName = view.findViewById(R.id.first_name)
         lastName = view.findViewById(R.id.last_name)
 
-        photoLoadingProgressBar = view.findViewById(R.id.photoLoading)
+        photoLoadingProgressBar = view.findViewById(R.id.photoLoadingIndicator)
     }
 
     override fun setFirstName(firstName: String) {
@@ -32,12 +32,17 @@ class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersAdapterCo
     }
 
     override fun setOnPhotoClickListener(clickListener: (position: Int, sharedViewId: Int) -> Unit) {
-        photo.setOnClickListener {
-            clickListener(adapterPosition, R.id.photo)
+        userPhoto.setOnClickListener {
+            clickListener(adapterPosition, it.id)
         }
     }
 
-    override fun setPhotoImage(url: String) {
-        BitmapManager.getInstance().getBitmapFromUrl(photo, photoLoadingProgressBar, url)
+    override fun setPhotoImage(photo: Photo) {
+        userPhoto.setImageBitmap(photo.bitmap)
     }
+
+    override fun showLoadingIndicator(show: Boolean) = if (show)
+        photoLoadingProgressBar.show()
+    else
+        photoLoadingProgressBar.hide()
 }

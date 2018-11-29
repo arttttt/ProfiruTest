@@ -1,4 +1,4 @@
-package com.arttttt.profirumvp.presenter
+package com.arttttt.profirumvp.presenter.users
 
 import com.arttttt.profirumvp.model.user.base.UsersRepository
 

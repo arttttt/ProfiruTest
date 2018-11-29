@@ -1,8 +1,10 @@
-package com.arttttt.profirumvp.presenter
+package com.arttttt.profirumvp.presenter.usersadapter
 
+import com.arttttt.profirumvp.model.photo.base.PhotoRepository
 import com.arttttt.profirumvp.model.user.User
 
-class UsersAdapterPresenter(private val view: UsersAdapterContract.View):
+class UsersAdapterPresenter(private val view: UsersAdapterContract.View,
+                            private val photoRepository: PhotoRepository):
     UsersAdapterContract.Presenter {
 
     private val users = mutableListOf<User>()
@@ -12,7 +14,11 @@ class UsersAdapterPresenter(private val view: UsersAdapterContract.View):
 
         holder.setFirstName(user.firstName)
         holder.setLastName(user.lastName)
-        holder.setPhotoImage(user.photoUrl)
+
+        photoRepository.getPhoto({
+            holder.showLoadingIndicator(false)
+            holder.setPhotoImage(it)
+        },{}, user.photoUrl)
     }
 
     override fun getUsersCount() = users.size

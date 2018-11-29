@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import com.arttttt.profirumvp.R
+import com.arttttt.profirumvp.presenter.login.LoginContract
+import com.arttttt.profirumvp.presenter.login.LoginPreseter
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
@@ -14,7 +16,7 @@ import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     companion object {
         fun start(context: Context) {
@@ -25,13 +27,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private val presenter: LoginContract.Presenter = LoginPreseter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        loginButton.setOnClickListener {
-            VKSdk.login(this, VKScope.FRIENDS, VKScope.PHOTOS)
-        }
+        loginButton.setOnClickListener { presenter.onLoginButtonClicked() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -47,5 +49,9 @@ class LoginActivity : AppCompatActivity() {
         {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun startLoginProcess() {
+        VKSdk.login(this, VKScope.FRIENDS, VKScope.PHOTOS)
     }
 }

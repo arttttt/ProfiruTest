@@ -24,7 +24,8 @@
         </activity>
         <activity android:name="com.arttttt.profirumvp.view.ui.UsersActivity">
         </activity>
-        <activity android:name="com.arttttt.profirumvp.view.ui.PhotoActivity">
+        <activity android:name="com.arttttt.profirumvp.view.ui.PhotoActivity"
+                  android:theme="@style/AppTheme.FullScreen">
         </activity>
     </application>
 

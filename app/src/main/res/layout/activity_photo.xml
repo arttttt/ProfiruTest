@@ -9,12 +9,12 @@
 
     <ImageView android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:id="@+id/photo"
+               android:id="@+id/userPhoto"
                android:scaleType="fitCenter"/>
 
     <android.support.v4.widget.ContentLoadingProgressBar android:layout_width="wrap_content"
                                                          android:layout_height="wrap_content"
-                                                         android:id="@+id/photoLoading"
+                                                         android:id="@+id/photoLoadingIndicator"
                                                          style="?android:attr/progressBarStyleLarge"
                                                          app:layout_constraintEnd_toEndOf="parent"
                                                          app:layout_constraintStart_toStartOf="parent"

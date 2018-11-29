@@ -1,31 +1,29 @@
-package com.arttttt.profirumvp.utils
+package com.arttttt.profirumvp.model.photo
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.arttttt.profirumvp.model.base.Result
 import com.arttttt.profirumvp.model.cache.FileCache
-import kotlinx.coroutines.*
+import com.arttttt.profirumvp.model.photo.base.PhotoDataSource
+import com.arttttt.profirumvp.utils.StreamUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class BitmapLoader(private val scope: CoroutineScope = GlobalScope,
-                   private val mainDispatcher: MainCoroutineDispatcher = Dispatchers.Main,
-                   private val backgroundDispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class PhotoDataSourceImpl: PhotoDataSource() {
     private val fileCache = FileCache()
 
-    fun loadBitmap(url: String, onComplete: (Bitmap?) -> Unit, onError: (Throwable) -> Unit) {
-        scope.launch(mainDispatcher) {
-            try {
-                val result = async(backgroundDispatcher) { getBitmap(url) }
-                onComplete(result.await())
-            } catch (e: CancellationException) {
-                e.printStackTrace()
-            } catch (e: Exception) {
-                onError(e)
-            }
+    override suspend fun work(param: String?): Result {
+        if (param != null) {
+            val bitmap = getBitmap(param)
+
+            if (bitmap != null)
+                return Result.Success(Photo(bitmap))
         }
+
+        return Result.Error(NullPointerException())
     }
 
     private fun getBitmap(url: String): Bitmap? {

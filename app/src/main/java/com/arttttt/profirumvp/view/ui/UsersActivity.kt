@@ -14,8 +14,8 @@ import com.arttttt.profirumvp.view.adapters.UsersAdapter
 import com.arttttt.profirumvp.model.user.User
 import com.arttttt.profirumvp.model.user.UsersDataSourceImpl
 import com.arttttt.profirumvp.model.user.UsersRepositoryImpl
-import com.arttttt.profirumvp.presenter.UsersContract
-import com.arttttt.profirumvp.presenter.UsersPresenter
+import com.arttttt.profirumvp.presenter.users.UsersContract
+import com.arttttt.profirumvp.presenter.users.UsersPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.arttttt.profirumvp.utils.PermissionsManager
 import kotlinx.android.synthetic.main.activity_users.*

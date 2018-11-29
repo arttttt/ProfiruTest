@@ -1,5 +1,6 @@
-package com.arttttt.profirumvp.presenter
+package com.arttttt.profirumvp.presenter.usersadapter
 
+import com.arttttt.profirumvp.model.photo.Photo
 import com.arttttt.profirumvp.model.user.User
 
 interface UsersAdapterContract {
@@ -11,8 +12,9 @@ interface UsersAdapterContract {
     interface ViewHolder {
         fun setFirstName(firstName: String)
         fun setLastName(lastName: String)
-        fun setPhotoImage(url: String)
         fun setOnPhotoClickListener(clickListener: (position: Int, sharedViewId: Int) -> Unit)
+        fun setPhotoImage(photo: Photo)
+        fun showLoadingIndicator(show: Boolean)
     }
 
     interface Presenter {

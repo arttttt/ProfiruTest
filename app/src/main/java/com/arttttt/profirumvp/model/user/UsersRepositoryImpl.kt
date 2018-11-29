@@ -9,11 +9,11 @@ class UsersRepositoryImpl private constructor(private val dataSource: UsersDataS
 
     companion object: SingletonHolderWithParam<UsersDataSourceImpl, UsersRepositoryImpl>(::UsersRepositoryImpl)
 
-    private val users = mutableListOf<User>()
+    private val users = linkedSetOf<User>()
 
     override fun getUsers(onCompletion: (List<User>) -> Unit, onError: (String) -> Unit) {
         if (users.isNotEmpty()) {
-            onCompletion(users)
+            onCompletion(users.toList())
             return
         }
 
