@@ -7,6 +7,7 @@ import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.net.HttpURLConnection
 import java.net.URL
 
 class BitmapLoader(private val scope: CoroutineScope = GlobalScope,
@@ -40,11 +41,13 @@ class BitmapLoader(private val scope: CoroutineScope = GlobalScope,
 
         if (bitmap == null) {
             val imageUrl = URL(url)
-            var inputStream = imageUrl.openConnection().getInputStream()
+            val urlConnection = imageUrl.openConnection() as HttpURLConnection
 
+            var inputStream = urlConnection.inputStream
             file = fileCache.getFile(url)
             val outputStream = FileOutputStream(file)
             StreamUtils.copyStream(inputStream, outputStream)
+            urlConnection.disconnect()
             outputStream.close()
             inputStream = FileInputStream(file)
 

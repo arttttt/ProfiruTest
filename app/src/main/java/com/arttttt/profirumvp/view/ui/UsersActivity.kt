@@ -11,7 +11,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.view.adapters.UsersAdapter
-import com.arttttt.profirumvp.model.User
+import com.arttttt.profirumvp.model.user.User
+import com.arttttt.profirumvp.model.user.UsersDataSourceImpl
+import com.arttttt.profirumvp.model.user.UsersRepositoryImpl
 import com.arttttt.profirumvp.presenter.UsersContract
 import com.arttttt.profirumvp.presenter.UsersPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
@@ -46,7 +48,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
                 .getInstance()
                 .requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE, null)
         else
-            mPresenter.getUsers()
+            mPresenter.getUsers(UsersRepositoryImpl.getInstance(UsersDataSourceImpl()))
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -55,18 +57,18 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
 
         if (permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            mPresenter.getUsers()
+            mPresenter.getUsers(UsersRepositoryImpl.getInstance(UsersDataSourceImpl()))
     }
 
     override fun showErrorMessage(message: String) {
         errorMessage.text = message
     }
 
-    override fun showLoadingProgressbar(hide: Boolean) {
-        if (hide)
-            usersLoading.hide()
-        else
+    override fun showLoadingIndicator(show: Boolean) {
+        if (show)
             usersLoading.show()
+        else
+            usersLoading.hide()
     }
 
     override fun showUsers(users: List<User>) {

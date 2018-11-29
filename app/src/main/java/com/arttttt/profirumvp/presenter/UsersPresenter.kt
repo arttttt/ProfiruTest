@@ -1,24 +1,20 @@
 package com.arttttt.profirumvp.presenter
 
-import com.arttttt.profirumvp.model.data.UsersRepositoryImpl
-import com.arttttt.profirumvp.model.data.base.Repository
-import com.arttttt.profirumvp.model.User
+import com.arttttt.profirumvp.model.user.base.UsersRepository
 
 class UsersPresenter(private val view: UsersContract.View):
     UsersContract.Presenter {
-    override fun getUsers() {
-        view.showLoadingProgressbar(false)
-        UsersRepositoryImpl.loadAsync(object: Repository.RepositoryLoadAsyncCallback<List<User>> {
-            override fun onDataLoaded(data: List<User>) {
-                view.showLoadingProgressbar(true)
-                view.showUsers(data)
-            }
 
-            override fun onError(message: String) {
-                view.showLoadingProgressbar(true)
-                view.showErrorMessage(message)
-            }
-        })
+    override fun getUsers(usersRepository: UsersRepository) {
+        view.showLoadingIndicator(true)
+        usersRepository
+            .getUsers({
+                view.showLoadingIndicator(false)
+                view.showUsers(it)
+            }, {
+                view.showLoadingIndicator(false)
+                view.showErrorMessage(it)
+            })
     }
 
     override fun openUserPhoto(viewToAnimate: android.view.View, url: String) {

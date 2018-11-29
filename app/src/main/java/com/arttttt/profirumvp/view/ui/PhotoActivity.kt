@@ -17,9 +17,11 @@ class PhotoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_photo)
 
         val extras = intent.extras
-        val url = extras.getString(EXTRA_PHOTO_URL_ID)
+        val url = extras?.getString(EXTRA_PHOTO_URL_ID)
 
-        BitmapManager.getInstance().getBitmapFromUrl(photo, photoLoading, url)
+        url?.let {
+            BitmapManager.getInstance().getBitmapFromUrl(photo, photoLoading, it)
+        }
 
         photo.setOnClickListener {
             supportFinishAfterTransition()

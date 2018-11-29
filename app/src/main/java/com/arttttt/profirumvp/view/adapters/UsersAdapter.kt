@@ -27,16 +27,13 @@ class UsersAdapter(private val photoClickListener: PhotoClickListener): Recycler
             .from(parent.context).inflate(R.layout.user_item, parent, false)
 
         return UsersViewHolder(view).apply {
-            this.presenter.usersAdapterPresenter = this@UsersAdapter.presenter
+            setOnPhotoClickListener { position, sharedViewId -> handleItemClick(position, sharedViewId) }
         }
     }
 
     override fun getItemCount() = presenter.getUsersCount()
 
-    override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        holder.presenter.position = position
-        holder.presenter.bind()
-    }
+    override fun onBindViewHolder(holder: UsersViewHolder, position: Int) = presenter.bind(position, holder)
 
     interface PhotoClickListener {
         fun onPhotoClick(url: String, sharedViewId: Int, position: Int)
