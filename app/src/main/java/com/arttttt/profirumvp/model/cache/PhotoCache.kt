@@ -4,7 +4,7 @@ import android.support.v4.util.LruCache
 import com.arttttt.profirumvp.model.cache.base.MemoryCache
 import com.arttttt.profirumvp.model.photo.Photo
 
-class BitmapCache: MemoryCache<Photo> {
+class PhotoCache: MemoryCache<Photo> {
     private lateinit var lruCache: LruCache<String, Photo>
 
     override fun clear() {
