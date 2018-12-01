@@ -2,9 +2,7 @@ package com.arttttt.profirumvp.model.cache
 
 import java.io.File
 
-
 class FileCache {
-
     private var cacheDir: File
 
     init {

@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import com.arttttt.profirumvp.base.SingletonHolder
 
-class PermissionsManager private constructor() {
-    companion object : SingletonHolder<PermissionsManager>(::PermissionsManager)
+class PermissionsUtils private constructor() {
+    companion object : SingletonHolder<PermissionsUtils>(::PermissionsUtils)
 
     fun checkPermission(context: Context, permission: String): Boolean {
         return (ContextCompat.checkSelfPermission(context, permission)

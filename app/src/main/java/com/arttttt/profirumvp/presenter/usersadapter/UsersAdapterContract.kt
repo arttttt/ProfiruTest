@@ -6,7 +6,6 @@ import com.arttttt.profirumvp.model.user.User
 interface UsersAdapterContract {
     interface View {
         fun notifyAdapter()
-        fun handleItemClick(position: Int, sharedViewId: Int)
     }
 
     interface ViewHolder {
@@ -21,7 +20,6 @@ interface UsersAdapterContract {
         fun bind(position: Int, holder: ViewHolder)
         fun getItemAt(position: Int): User
         fun getUsersCount(): Int
-        fun onItemClick(position: Int, sharedViewId: Int)
         fun putUsers(users: List<User>)
     }
 }

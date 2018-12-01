@@ -17,7 +17,7 @@ import com.arttttt.profirumvp.model.user.UsersRepositoryImpl
 import com.arttttt.profirumvp.presenter.users.UsersContract
 import com.arttttt.profirumvp.presenter.users.UsersPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
-import com.arttttt.profirumvp.utils.PermissionsManager
+import com.arttttt.profirumvp.utils.PermissionsUtils
 import kotlinx.android.synthetic.main.activity_users.*
 
 class UsersActivity : AppCompatActivity(), UsersContract.View {
@@ -39,12 +39,12 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
 
-        val granted = PermissionsManager
+        val granted = PermissionsUtils
             .getInstance()
             .checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         if (!granted)
-            PermissionsManager
+            PermissionsUtils
                 .getInstance()
                 .requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE, null)
         else

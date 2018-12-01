@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.model.photo.PhotoDataSourceImpl
 import com.arttttt.profirumvp.model.photo.PhotoRepositoryImpl
-import com.arttttt.profirumvp.model.photo.base.PhotoDataSource
 import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterContract
 import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterPresenter
 
@@ -14,12 +13,6 @@ class UsersAdapter(private val photoClickListener: PhotoClickListener): Recycler
 
     val presenter: UsersAdapterContract.Presenter =
         UsersAdapterPresenter(this, PhotoRepositoryImpl.getInstance(PhotoDataSourceImpl()))
-
-    override fun handleItemClick(position: Int, sharedViewId: Int) {
-        val user = presenter.getItemAt(position)
-
-        photoClickListener.onPhotoClick(user.photoUrl, sharedViewId, position)
-    }
 
     override fun notifyAdapter() {
         notifyDataSetChanged()
@@ -30,7 +23,10 @@ class UsersAdapter(private val photoClickListener: PhotoClickListener): Recycler
             .from(parent.context).inflate(R.layout.user_item, parent, false)
 
         return UsersViewHolder(view).apply {
-            setOnPhotoClickListener { position, sharedViewId -> handleItemClick(position, sharedViewId) }
+            setOnPhotoClickListener { position, sharedViewId ->
+                val user = presenter.getItemAt(position)
+                photoClickListener.onPhotoClick(user.photoUrl, sharedViewId, position)
+            }
         }
     }
 

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.presenter.login.LoginContract
-import com.arttttt.profirumvp.presenter.login.LoginPreseter
+import com.arttttt.profirumvp.presenter.login.LoginPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         }
     }
 
-    private val presenter: LoginContract.Presenter = LoginPreseter(this)
+    private val presenter: LoginContract.Presenter = LoginPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

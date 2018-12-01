@@ -27,8 +27,4 @@ class UsersAdapterPresenter(private val view: UsersAdapterContract.View,
         this.users.addAll(users)
         view.notifyAdapter()
     }
-
-    override fun onItemClick(position: Int, sharedViewId: Int) {
-        view.handleItemClick(position, sharedViewId)
-    }
 }

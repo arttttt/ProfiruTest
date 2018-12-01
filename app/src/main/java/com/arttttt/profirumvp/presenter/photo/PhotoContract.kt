@@ -1,7 +1,6 @@
 package com.arttttt.profirumvp.presenter.photo
 
 import com.arttttt.profirumvp.model.photo.Photo
-import com.arttttt.profirumvp.model.photo.base.PhotoRepository
 
 interface PhotoContract {
     interface View {
