@@ -12,7 +12,7 @@ interface UsersContract {
     }
 
     interface Presenter {
-        fun getUsers(usersRepository: UsersRepository)
+        fun getUsers()
         fun openUserPhoto(viewToAnimate: android.view.View, url: String)
     }
 }

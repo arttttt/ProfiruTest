@@ -48,7 +48,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
                 .getInstance()
                 .requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE, null)
         else
-            mPresenter.getUsers(UsersRepositoryImpl.getInstance(UsersDataSourceImpl()))
+            mPresenter.getUsers()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -57,7 +57,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
 
         if (permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            mPresenter.getUsers(UsersRepositoryImpl.getInstance(UsersDataSourceImpl()))
+            mPresenter.getUsers()
     }
 
     override fun showErrorMessage(message: String) {
