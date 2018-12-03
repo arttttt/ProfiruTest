@@ -76,11 +76,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
             layoutManager = LinearLayoutManager(this@UsersActivity)
             adapter = UsersAdapter(object : UsersAdapter.PhotoClickListener {
                 override fun onPhotoClick(url: String, sharedViewId: Int, position: Int) {
-                    val sharedView = layoutManager
-                        ?.findViewByPosition(position)
-                        ?.findViewById<View>(sharedViewId)
-                    if (sharedView != null)
-                        mPresenter.openUserPhoto(sharedView, url)
+                    mPresenter.openUserPhoto(sharedViewId, position, url)
                 }
             }).apply {
                 presenter.putUsers(users)
@@ -88,13 +84,23 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
         }
     }
 
-    override fun startPhotoActivity(view: View, url: String) {
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-            view, "photo")
-
-        ActivityUtils.startActivity<PhotoActivity>(this,
-            options.toBundle(),
-            Bundle().apply { putString(PhotoActivity.EXTRA_PHOTO_URL_ID, url) },
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    override fun startPhotoActivity(sharedViewId: Int, position: Int, url: String) {
+        usersRecyclerView
+            .layoutManager
+            ?.findViewByPosition(position)
+            ?.findViewById<View>(sharedViewId)
+            ?.let {
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    it, "photo"
+                )
+            }?.let {
+                ActivityUtils.startActivity<PhotoActivity>(
+                    this,
+                    it.toBundle(),
+                    Bundle().apply { putString(PhotoActivity.EXTRA_PHOTO_URL_ID, url) },
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                )
+            }
     }
 }

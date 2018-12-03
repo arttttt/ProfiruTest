@@ -26,9 +26,9 @@ class UsersPresenterTest {
 
     @Test
     fun openUserPhotoTest() {
-        val sharedView = mockk<View>()
-        presenter.openUserPhoto(sharedView, "")
-        verify { view.startPhotoActivity(sharedView, "") }
+        val sharedView = 1
+        presenter.openUserPhoto(sharedView, 0, "")
+        verify { view.startPhotoActivity(sharedView, 0, "") }
     }
 
     @Test

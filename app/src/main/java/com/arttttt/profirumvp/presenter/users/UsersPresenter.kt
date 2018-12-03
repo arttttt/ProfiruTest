@@ -20,7 +20,7 @@ class UsersPresenter(private val view: UsersContract.View,
             })
     }
 
-    override fun openUserPhoto(viewToAnimate: android.view.View, url: String) {
-        view.startPhotoActivity(viewToAnimate, url)
+    override fun openUserPhoto(sharedViewId: Int, position: Int,  url: String) {
+        view.startPhotoActivity(sharedViewId, position, url)
     }
 }

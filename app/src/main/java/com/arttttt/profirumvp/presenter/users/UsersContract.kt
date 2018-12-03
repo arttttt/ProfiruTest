@@ -1,18 +1,17 @@
 package com.arttttt.profirumvp.presenter.users
 
 import com.arttttt.profirumvp.model.user.User
-import com.arttttt.profirumvp.model.user.base.UsersRepository
 
 interface UsersContract {
     interface View {
         fun showErrorMessage(message: String)
         fun showLoadingIndicator(show: Boolean)
         fun showUsers(users: List<User>)
-        fun startPhotoActivity(view: android.view.View, url: String)
+        fun startPhotoActivity(sharedViewId: Int, position: Int, url: String)
     }
 
     interface Presenter {
         fun getUsers()
-        fun openUserPhoto(viewToAnimate: android.view.View, url: String)
+        fun openUserPhoto(sharedViewId: Int, position:Int,  url: String)
     }
 }
