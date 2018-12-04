@@ -11,7 +11,7 @@ import org.junit.Test
 
 class UsersPresenterTest {
     private val PHOTO_URI = "https://vk.com/images/camera_200.png"
-    private val ERROR_TEXT = "SAMPLE ERROR TEST"
+    private val ERROR_TEXT = "SAMPLE ERROR TEXT"
 
     private val users = listOf(User("Test1", "Test1_last", PHOTO_URI),
         User("Test2", "Test2_last", ""),
@@ -25,10 +25,13 @@ class UsersPresenterTest {
     @RelaxedMockK
     private lateinit var repository: UsersRepository
 
+    private val onCompletion = slot<(List<User>) -> Unit>()
+    private val onError = slot<(String) -> Unit>()
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        every { repository.getUsers(captureLambda(), captureLambda()) } answers {
+        every { repository.getUsers(onCompletion = capture(onCompletion), onError = capture(onError)) } answers {
             val onCompletion = firstArg<(List<User>) -> Unit>()
             onCompletion.invoke(users)
 
@@ -48,7 +51,14 @@ class UsersPresenterTest {
     @Test
     fun getUsersTest() {
         presenter.getUsers()
-        verify { repository.getUsers(captureLambda(), captureLambda()) }
+        verifyOrder {
+            view.showLoadingIndicator(true)
+            repository.getUsers(onCompletion.captured, onError.captured)
+            view.showLoadingIndicator(false)
+            view.showUsers(users)
+            view.showLoadingIndicator(false)
+            view.showErrorMessage(ERROR_TEXT)
+        }
     }
 
     @Test
