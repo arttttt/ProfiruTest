@@ -94,7 +94,8 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
                     this,
                     it, "photo"
                 )
-            }?.let {
+            }
+            ?.let {
                 ActivityUtils.startActivity<PhotoActivity>(
                     this,
                     it.toBundle(),
