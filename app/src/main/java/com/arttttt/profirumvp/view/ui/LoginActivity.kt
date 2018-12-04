@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.presenter.login.LoginContract
-import com.arttttt.profirumvp.presenter.login.LoginPresenter
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
@@ -15,6 +14,8 @@ import com.vk.sdk.VKScope
 import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
@@ -27,7 +28,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         }
     }
 
-    private val presenter: LoginContract.Presenter = LoginPresenter(this)
+    private val presenter: LoginContract.Presenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

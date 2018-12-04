@@ -4,15 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.arttttt.profirumvp.R
-import com.arttttt.profirumvp.model.photo.PhotoDataSourceImpl
-import com.arttttt.profirumvp.model.photo.PhotoRepositoryImpl
+import com.arttttt.profirumvp.model.photo.base.PhotoRepository
 import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterContract
 import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterPresenter
 
-class UsersAdapter(private val photoClickListener: PhotoClickListener): RecyclerView.Adapter<UsersViewHolder>(), UsersAdapterContract.View {
+class UsersAdapter(private val photoClickListener: PhotoClickListener, repository: PhotoRepository)
+    : RecyclerView.Adapter<UsersViewHolder>(), UsersAdapterContract.View {
 
-    val presenter: UsersAdapterContract.Presenter =
-        UsersAdapterPresenter(this, PhotoRepositoryImpl.getInstance(PhotoDataSourceImpl()))
+    val presenter: UsersAdapterContract.Presenter = UsersAdapterPresenter(this, repository)
 
     override fun notifyAdapter() {
         notifyDataSetChanged()

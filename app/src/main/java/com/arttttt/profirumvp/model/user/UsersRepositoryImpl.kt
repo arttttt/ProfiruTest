@@ -1,14 +1,9 @@
 package com.arttttt.profirumvp.model.user
 
-import com.arttttt.profirumvp.base.SingletonHolderWithParam
 import com.arttttt.profirumvp.model.user.base.UsersDataSource
 import com.arttttt.profirumvp.model.user.base.UsersRepository
 
-class UsersRepositoryImpl private constructor(private val dataSource: UsersDataSource):
-    UsersRepository {
-
-    companion object: SingletonHolderWithParam<UsersDataSourceImpl, UsersRepositoryImpl>(::UsersRepositoryImpl)
-
+class UsersRepositoryImpl(private val dataSource: UsersDataSource): UsersRepository {
     private val users = linkedSetOf<User>()
 
     override fun getUsers(onCompletion: (List<User>) -> Unit, onError: (String) -> Unit) {

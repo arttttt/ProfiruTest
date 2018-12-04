@@ -12,13 +12,14 @@ import android.view.View
 import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.view.adapters.UsersAdapter
 import com.arttttt.profirumvp.model.user.User
-import com.arttttt.profirumvp.model.user.UsersDataSourceImpl
-import com.arttttt.profirumvp.model.user.UsersRepositoryImpl
 import com.arttttt.profirumvp.presenter.users.UsersContract
-import com.arttttt.profirumvp.presenter.users.UsersPresenter
+import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterContract
 import com.arttttt.profirumvp.utils.ActivityUtils
 import com.arttttt.profirumvp.utils.PermissionsUtils
 import kotlinx.android.synthetic.main.activity_users.*
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class UsersActivity : AppCompatActivity(), UsersContract.View {
 
@@ -33,7 +34,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
         }
     }
 
-    private val mPresenter = UsersPresenter(this)
+    private val mPresenter: UsersContract.Presenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +79,7 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
                 override fun onPhotoClick(url: String, sharedViewId: Int, position: Int) {
                     mPresenter.openUserPhoto(sharedViewId, position, url)
                 }
-            }).apply {
+            }, get()).apply {
                 presenter.putUsers(users)
             }
         }
