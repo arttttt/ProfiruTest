@@ -11,7 +11,6 @@ interface UsersAdapterContract {
     interface ViewHolder {
         fun setFirstName(firstName: String)
         fun setLastName(lastName: String)
-        fun setOnPhotoClickListener(clickListener: (position: Int, sharedViewId: Int) -> Unit)
         fun setPhotoImage(photo: Photo)
         fun showLoadingIndicator(show: Boolean)
     }

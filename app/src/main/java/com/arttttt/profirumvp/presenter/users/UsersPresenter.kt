@@ -3,7 +3,7 @@ package com.arttttt.profirumvp.presenter.users
 import com.arttttt.profirumvp.model.user.base.UsersRepository
 
 class UsersPresenter(private val view: UsersContract.View,
-                     private val usersRepository: UsersRepository ):
+                     private val usersRepository: UsersRepository):
     UsersContract.Presenter {
 
     override fun getUsers() {

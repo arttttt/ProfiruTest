@@ -75,11 +75,9 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
     override fun showUsers(users: List<User>) {
         with(usersRecyclerView) {
             layoutManager = LinearLayoutManager(this@UsersActivity)
-            adapter = UsersAdapter(object : UsersAdapter.PhotoClickListener {
-                override fun onPhotoClick(url: String, sharedViewId: Int, position: Int) {
-                    mPresenter.openUserPhoto(sharedViewId, position, url)
-                }
-            }, get()).apply {
+            adapter = UsersAdapter(get()) { url, sharedViewId, position ->
+                mPresenter.openUserPhoto(sharedViewId, position, url)
+            }.apply {
                 presenter.putUsers(users)
             }
         }
@@ -90,18 +88,19 @@ class UsersActivity : AppCompatActivity(), UsersContract.View {
             .layoutManager
             ?.findViewByPosition(position)
             ?.findViewById<View>(sharedViewId)
-            ?.let {
+            ?.let {view ->
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this,
-                    it, "photo"
+                    view,
+                    "photo"
                 )
             }
-            ?.let {
+            ?.let { activityOptions ->
                 ActivityUtils.startActivity<PhotoActivity>(
                     this,
-                    it.toBundle(),
+                    activityOptions.toBundle(),
                     Bundle().apply { putString(PhotoActivity.EXTRA_PHOTO_URL_ID, url) },
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    0
                 )
             }
     }

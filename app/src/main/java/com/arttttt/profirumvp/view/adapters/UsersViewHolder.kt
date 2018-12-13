@@ -1,40 +1,29 @@
 package com.arttttt.profirumvp.view.adapters
 
-import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.arttttt.profirumvp.R
 import com.arttttt.profirumvp.model.photo.Photo
 import com.arttttt.profirumvp.presenter.usersadapter.UsersAdapterContract
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.user_item.*
 
-class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersAdapterContract.ViewHolder {
-    private val userPhoto: ImageView
-    private val firstName: TextView
-    private val lastName: TextView
-    private val photoLoadingProgressBar: ContentLoadingProgressBar
+class UsersViewHolder(override val containerView: View,
+                      itemClick: (position: Int, sharedViewId: Int) -> Unit): RecyclerView.ViewHolder(containerView),
+    UsersAdapterContract.ViewHolder,
+    LayoutContainer {
 
     init {
-        userPhoto = view.findViewById(R.id.userPhoto)
-        firstName = view.findViewById(R.id.first_name)
-        lastName = view.findViewById(R.id.last_name)
-
-        photoLoadingProgressBar = view.findViewById(R.id.photoLoadingIndicator)
+        userPhoto.setOnClickListener { view ->
+            itemClick(adapterPosition, view.id)
+        }
     }
 
     override fun setFirstName(firstName: String) {
-        this.firstName.text = firstName
+        first_name.text = firstName
     }
 
     override fun setLastName(lastName: String) {
-        this.lastName.text = lastName
-    }
-
-    override fun setOnPhotoClickListener(clickListener: (position: Int, sharedViewId: Int) -> Unit) {
-        userPhoto.setOnClickListener {
-            clickListener(adapterPosition, it.id)
-        }
+        last_name.text = lastName
     }
 
     override fun setPhotoImage(photo: Photo) {
@@ -42,7 +31,7 @@ class UsersViewHolder(view: View): RecyclerView.ViewHolder(view), UsersAdapterCo
     }
 
     override fun showLoadingIndicator(show: Boolean) = if (show)
-        photoLoadingProgressBar.show()
+        photoLoadingIndicator.show()
     else
-        photoLoadingProgressBar.hide()
+        photoLoadingIndicator.hide()
 }
