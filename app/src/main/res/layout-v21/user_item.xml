@@ -34,7 +34,7 @@
                    android:layout_height="match_parent"
                    android:id="@+id/userPhoto"
                    android:scaleType="centerCrop"
-                   android:transitionName="avatar"/>
+                   android:transitionName="photo"/>
 
         <android.support.v4.widget.ContentLoadingProgressBar android:layout_width="wrap_content"
                                                              android:layout_height="wrap_content"
